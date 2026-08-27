@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Download, Github, Globe, Linkedin, Mail, Twitter } from "lucide-react";
+import { ArrowDown, Github, Globe, Instagram, Linkedin, Mail } from "lucide-react";
 import { portfolio } from "@/config";
 import { MagneticButton } from "./MagneticButton";
-import { downloadResume } from "@/lib/resume";
+import { Avatar } from "./Avatar";
+import { scrollToId } from "@/lib/scroll";
 
-const icons = { Github, Linkedin, Twitter, Mail, Globe };
+const icons = { Github, Linkedin, Instagram, Mail, Globe };
 
 const container = {
   hidden: {},
@@ -26,9 +27,13 @@ export function Hero() {
         animate="show"
         className="mx-auto w-full max-w-6xl px-6"
       >
+        <motion.div variants={item}>
+          <Avatar className="h-28 w-28 sm:h-32 sm:w-32" />
+        </motion.div>
+
         <motion.span
           variants={item}
-          className="inline-flex items-center gap-2 rounded-full border border-glass-border bg-glass px-3 py-1.5 text-xs text-muted-foreground"
+          className="mt-7 inline-flex items-center gap-2 rounded-full border border-glass-border bg-glass px-3 py-1.5 text-xs text-muted-foreground"
         >
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-70" />
@@ -39,7 +44,7 @@ export function Hero() {
 
         <motion.h1
           variants={item}
-          className="mt-7 max-w-4xl text-[clamp(2.75rem,8vw,6rem)] font-bold leading-[0.95]"
+          className="mt-6 max-w-4xl text-[clamp(2.75rem,8vw,6rem)] font-bold leading-[0.95]"
         >
           <span className="block text-foreground">{person.name}</span>
           <span className="text-gradient block">{person.role}</span>
@@ -55,43 +60,38 @@ export function Hero() {
         <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-3">
           <MagneticButton
             className="glow-ring bg-primary text-primary-foreground hover:opacity-95"
-            onClick={() =>
-              document
-                .getElementById("projects")
-                ?.scrollIntoView({ behavior: "smooth", block: "start" })
-            }
+            onClick={() => scrollToId("projects")}
           >
-            View selected work
+            View my work
             <ArrowDown className="h-4 w-4" />
           </MagneticButton>
 
           <MagneticButton
             className="border border-glass-border bg-glass text-foreground hover:bg-secondary/60"
-            onClick={downloadResume}
+            onClick={() => scrollToId("contact")}
           >
-            <Download className="h-4 w-4" />
-            Download resume
+            Get in touch
           </MagneticButton>
         </motion.div>
 
-        <motion.ul variants={item} className="mt-12 flex items-center gap-3">
+        <motion.ul variants={item} className="mt-12 flex flex-wrap items-center gap-3">
           {socials.map((s) => {
             const Icon = icons[s.icon];
             return (
               <li key={s.label}>
                 <a
                   href={s.href}
-                  target={s.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  aria-label={s.label}
-                  className="grid h-11 w-11 place-items-center rounded-full border border-glass-border bg-glass text-muted-foreground transition-all hover:-translate-y-0.5 hover:text-foreground"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={`${s.label} profile (opens in a new tab)`}
+                  className="grid h-11 w-11 place-items-center rounded-full border border-glass-border bg-glass text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:scale-110 hover:border-accent/50 hover:bg-primary/15 hover:text-accent"
                 >
-                  <Icon className="h-4.5 w-4.5" />
+                  <Icon className="h-[1.15rem] w-[1.15rem]" />
                 </a>
               </li>
             );
           })}
-          <li className="ml-2 text-sm text-muted-foreground">{person.location}</li>
+          <li className="ml-1 text-sm text-muted-foreground">{person.location}</li>
         </motion.ul>
       </motion.div>
     </section>
