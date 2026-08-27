@@ -52,6 +52,8 @@ export const portfolio = {
     email: "",
     phone: "",
     resumeFileName: "Hari-Aditya-Reddy-Resume.txt",
+    /** Drop your photo URL (or an imported asset) here to replace the monogram. */
+    photoUrl: "",
     bio: [
       "I'm Hari Aditya Reddy, a developer based in Sompeta, Srikakulam District, Andhra Pradesh, India.",
       "A fuller bio is on the way — for now, the quickest way to see what I'm working on is GitHub, or you can reach me through the links below.",
