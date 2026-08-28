@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Globe, Instagram, Linkedin, Mail } from "lucide-react";
+import { ArrowDown, FileText, Github, Globe, Instagram, Linkedin, Mail } from "lucide-react";
 import { portfolio } from "@/config";
 import { MagneticButton } from "./MagneticButton";
 import { Avatar } from "./Avatar";
 import { scrollToId } from "@/lib/scroll";
+import { downloadResume } from "@/lib/resume";
 
 const icons = { Github, Linkedin, Instagram, Mail, Globe };
 
@@ -71,6 +72,20 @@ export function Hero() {
             onClick={() => scrollToId("contact")}
           >
             Get in touch
+          </MagneticButton>
+
+          <MagneticButton
+            className="border border-glass-border bg-glass text-foreground hover:bg-secondary/60"
+            href={person.resumeUrl || undefined}
+            onClick={person.resumeUrl ? undefined : downloadResume}
+            ariaLabel={
+              person.resumeUrl
+                ? "View resume (opens in a new tab)"
+                : "Download resume"
+            }
+          >
+            <FileText className="h-4 w-4" />
+            Resume
           </MagneticButton>
         </motion.div>
 
