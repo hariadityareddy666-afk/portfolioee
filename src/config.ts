@@ -52,6 +52,8 @@ export const portfolio = {
     email: "",
     phone: "",
     resumeFileName: "Hari-Aditya-Reddy-Resume.txt",
+    /** Public URL to your resume (PDF/Drive link). Opens in a new tab. Falls back to a generated download while empty. */
+    resumeUrl: "",
     /** Drop your photo URL (or an imported asset) here to replace the monogram. */
     photoUrl: "",
     bio: [
