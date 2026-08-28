@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Loader2, Mail, MapPin, Send } from "lucide-react";
+import { Check, Copy, Loader2, Mail, MapPin, Send } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { portfolio } from "@/config";
@@ -27,6 +27,28 @@ export function Contact() {
   const [values, setValues] = useState<Fields>({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<Errors>({});
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  async function copyEmail() {
+    const email = portfolio.person.email;
+    if (!email) return;
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      // Clipboard API unavailable (e.g. non-secure context) — legacy fallback.
+      const ta = document.createElement("textarea");
+      ta.value = email;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+    }
+    setCopied(true);
+    toast.success("Email address copied to clipboard.");
+    setTimeout(() => setCopied(false), 2000);
+  }
 
   function set<K extends keyof Fields>(key: K, value: string) {
     setValues((v) => ({ ...v, [key]: value }));
@@ -85,15 +107,29 @@ export function Contact() {
         >
           <div className="space-y-5">
             {portfolio.person.email && (
-              <a
-                href={`mailto:${portfolio.person.email}`}
-                className="flex items-center gap-3 text-sm transition-colors hover:text-accent"
-              >
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-accent">
-                  <Mail className="h-4 w-4" />
-                </span>
-                {portfolio.person.email}
-              </a>
+              <div className="flex items-center gap-3">
+                <a
+                  href={`mailto:${portfolio.person.email}`}
+                  className="flex items-center gap-3 text-sm transition-colors hover:text-accent"
+                >
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-accent">
+                    <Mail className="h-4 w-4" />
+                  </span>
+                  {portfolio.person.email}
+                </a>
+                <button
+                  type="button"
+                  onClick={copyEmail}
+                  aria-label={copied ? "Email address copied" : "Copy email address"}
+                  className="grid h-8 w-8 place-items-center rounded-full border border-glass-border bg-secondary/40 text-muted-foreground transition-colors hover:text-accent"
+                >
+                  {copied ? (
+                    <Check className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
+                  ) : (
+                    <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+                  )}
+                </button>
+              </div>
             )}
             <p className="flex items-center gap-3 text-sm text-muted-foreground">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-accent">
