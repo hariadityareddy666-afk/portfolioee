@@ -10,6 +10,7 @@ import { Experience } from "@/components/portfolio/Experience";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { SmoothScroll } from "@/components/portfolio/SmoothScroll";
+import { BackToTop } from "@/components/portfolio/BackToTop";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { portfolio } from "@/config";
@@ -44,6 +45,7 @@ function Index() {
         <Contact />
       </main>
       <Footer />
+      <BackToTop />
       <Toaster position="bottom-right" />
     </ThemeProvider>
   );
