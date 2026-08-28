@@ -84,15 +84,17 @@ export function Contact() {
           className="glass flex flex-col justify-between rounded-3xl p-8"
         >
           <div className="space-y-5">
-            <a
-              href={`mailto:${portfolio.person.email}`}
-              className="flex items-center gap-3 text-sm transition-colors hover:text-accent"
-            >
-              <span className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-accent">
-                <Mail className="h-4 w-4" />
-              </span>
-              {portfolio.person.email}
-            </a>
+            {portfolio.person.email && (
+              <a
+                href={`mailto:${portfolio.person.email}`}
+                className="flex items-center gap-3 text-sm transition-colors hover:text-accent"
+              >
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-accent">
+                  <Mail className="h-4 w-4" />
+                </span>
+                {portfolio.person.email}
+              </a>
+            )}
             <p className="flex items-center gap-3 text-sm text-muted-foreground">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-accent">
                 <MapPin className="h-4 w-4" />
@@ -101,8 +103,7 @@ export function Contact() {
             </p>
           </div>
           <p className="mt-10 text-sm leading-relaxed text-muted-foreground">
-            {portfolio.person.availability}. Typical reply time: under two business
-            days.
+            {portfolio.person.availability}.
           </p>
         </motion.div>
 
@@ -124,7 +125,7 @@ export function Contact() {
                 id="name"
                 value={values.name}
                 onChange={(e) => set("name", e.target.value)}
-                placeholder="Ada Lovelace"
+                placeholder="Your name"
                 aria-invalid={Boolean(errors.name)}
                 className={cn(inputBase, errors.name ? "border-destructive" : "border-glass-border")}
               />
@@ -141,7 +142,7 @@ export function Contact() {
                 type="email"
                 value={values.email}
                 onChange={(e) => set("email", e.target.value)}
-                placeholder="you@company.com"
+                placeholder="you@example.com"
                 aria-invalid={Boolean(errors.email)}
                 className={cn(inputBase, errors.email ? "border-destructive" : "border-glass-border")}
               />
@@ -160,7 +161,7 @@ export function Contact() {
               rows={6}
               value={values.message}
               onChange={(e) => set("message", e.target.value)}
-              placeholder="What are you building?"
+              placeholder="Your message"
               aria-invalid={Boolean(errors.message)}
               className={cn(
                 inputBase,

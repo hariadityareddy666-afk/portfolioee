@@ -5,6 +5,7 @@ import { portfolio } from "@/config";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
+import { scrollToId } from "@/lib/scroll";
 
 export function Navbar() {
   const ids = useMemo(() => portfolio.nav.map((n) => n.id), []);
@@ -22,7 +23,7 @@ export function Navbar() {
 
   function go(id: string) {
     setOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollToId(id);
   }
 
   return (

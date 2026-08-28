@@ -50,7 +50,7 @@ export function Section({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            style={reduced ? undefined : { y: headerY }}
+            style={{ y: reduced ? 0 : headerY }}
             className="mb-14 max-w-2xl"
           >
             {eyebrow && (
