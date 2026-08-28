@@ -34,12 +34,12 @@ export function AnimatedBackground() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <motion.div
-        style={reduced ? undefined : { y: grid }}
+        style={{ y: reduced ? 0 : grid }}
         className="absolute -inset-y-32 inset-x-0 grid-bg opacity-60"
       />
 
       <motion.div
-        style={reduced ? undefined : { opacity: wash }}
+        style={{ opacity: reduced ? 1 : wash }}
         className="animate-blob absolute -left-40 -top-40 h-[38rem] w-[38rem] rounded-full bg-indigo/25 blur-[140px]"
       />
       <div
