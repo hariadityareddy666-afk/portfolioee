@@ -76,8 +76,7 @@ export function Hero() {
 
           <MagneticButton
             className="border border-glass-border bg-glass text-foreground hover:bg-secondary/60"
-            href={person.resumeUrl || undefined}
-            onClick={person.resumeUrl ? undefined : downloadResume}
+            {...(person.resumeUrl ? { href: person.resumeUrl } : { onClick: downloadResume })}
             ariaLabel={
               person.resumeUrl
                 ? "View resume (opens in a new tab)"
