@@ -105,8 +105,26 @@ export function Projects() {
       id="projects"
       eyebrow="Selected work"
       title="Projects built to last"
-      intro="A slice of recent work — from design systems and edge infrastructure to full product builds."
+      intro="Projects will show up here as I publish them."
     >
+      {portfolio.projects.length === 0 ? (
+        <div className="glass rounded-3xl p-10 text-center">
+          <p className="text-base font-medium">Project details coming soon</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            I'm putting my work together. In the meantime, my code lives on GitHub.
+          </p>
+          <a
+            href={portfolio.socials.find((s) => s.label === "GitHub")?.href}
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label="Visit my GitHub profile (opens in a new tab)"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-glass-border px-5 py-2.5 text-sm transition-colors hover:border-accent/50 hover:text-accent"
+          >
+            <Github className="h-4 w-4" /> View GitHub
+          </a>
+        </div>
+      ) : (
+      <>
       <div className="mb-10 flex flex-wrap gap-2">
         {portfolio.projectFilters.map((f) => (
           <button
@@ -138,6 +156,8 @@ export function Projects() {
           ))}
         </AnimatePresence>
       </motion.div>
+      </>
+      )}
     </Section>
   );
 }
