@@ -9,6 +9,8 @@ import { Projects } from "@/components/portfolio/Projects";
 import { Experience } from "@/components/portfolio/Experience";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
+import { SmoothScroll } from "@/components/portfolio/SmoothScroll";
+import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { portfolio } from "@/config";
 
@@ -29,14 +31,16 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <ThemeProvider>
+      <SmoothScroll />
       <AnimatedBackground />
+      <ScrollProgress />
       <Navbar />
       <main>
         <Hero />
-        <SkillsMarquee />
+        {portfolio.skills.length > 0 && <SkillsMarquee />}
         <About />
         <Projects />
-        <Experience />
+        {portfolio.experience.length > 0 && <Experience />}
         <Contact />
       </main>
       <Footer />
