@@ -4,6 +4,7 @@
  *  Every section of the site maps over the data below.
  * ─────────────────────────────────────────────────────────────
  */
+import profilePhotoAsset from "./assets/profile-photo.jpg.asset.json";
 
 export type ProjectCategory = "Frontend" | "Backend" | "Fullstack";
 
@@ -55,7 +56,7 @@ export const portfolio = {
     /** Public URL to your resume (PDF/Drive link). Opens in a new tab. Falls back to a generated download while empty. */
     resumeUrl: "",
     /** Drop your photo URL (or an imported asset) here to replace the monogram. */
-    photoUrl: "",
+    photoUrl: profilePhotoAsset.url,
     bio: [
       "I'm Hari Aditya Reddy, a developer based in Sompeta, Srikakulam District, Andhra Pradesh, India.",
       "A fuller bio is on the way — for now, the quickest way to see what I'm working on is GitHub, or you can reach me through the links below.",
