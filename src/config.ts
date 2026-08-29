@@ -4,6 +4,7 @@
  *  Every section of the site maps over the data below.
  * ─────────────────────────────────────────────────────────────
  */
+import profilePhotoAsset from "./assets/profile-photo.jpg.asset.json";
 
 export type ProjectCategory = "Frontend" | "Backend" | "Fullstack";
 
