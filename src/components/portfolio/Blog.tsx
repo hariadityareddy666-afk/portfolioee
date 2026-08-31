@@ -1,0 +1,82 @@
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { portfolio } from "@/config";
+import { Section } from "./Section";
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+export function Blog() {
+  const { posts } = portfolio.blog;
+  if (posts.length === 0) return null;
+
+  return (
+    <Section
+      id="blog"
+      eyebrow="Blog"
+      title={portfolio.blog.heading}
+      intro={portfolio.blog.subheading}
+    >
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post, i) => (
+          <motion.article
+            key={post.slug}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="group glass flex h-full flex-col rounded-3xl p-6 transition-shadow duration-300 hover:shadow-[0_30px_80px_-40px_rgba(0,0,0,0.7)]"
+          >
+            <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground">
+              <time dateTime={post.date}>{formatDate(post.date)}</time>
+              <span>{post.readingTime}</span>
+            </div>
+
+            <h3 className="mt-4 text-xl font-semibold leading-snug">{post.title}</h3>
+            <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+              {post.excerpt}
+            </p>
+
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="rounded-md bg-secondary/60 px-2.5 py-1 text-[11px] text-secondary-foreground"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-6 border-t border-glass-border pt-5 text-sm">
+              {post.externalUrl ? (
+                <a
+                  href={post.externalUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex items-center gap-1.5 text-foreground transition-colors hover:text-accent"
+                >
+                  Read more <ArrowUpRight className="h-4 w-4" />
+                </a>
+              ) : (
+                <Link
+                  to="/blog/$slug"
+                  params={{ slug: post.slug }}
+                  className="inline-flex items-center gap-1.5 text-foreground transition-colors hover:text-accent"
+                >
+                  Read more <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              )}
+            </div>
+          </motion.article>
+        ))}
+      </div>
+    </Section>
+  );
+}
