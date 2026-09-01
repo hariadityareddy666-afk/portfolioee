@@ -105,7 +105,7 @@ export function Projects() {
       id="projects"
       eyebrow="Selected work"
       title="Projects built to last"
-      intro="Projects will show up here as I publish them."
+      intro="A few things I have built while learning — small, finished and real."
     >
       {portfolio.projects.length === 0 ? (
         <div className="glass rounded-3xl p-10 text-center">
