@@ -4,7 +4,6 @@ import { portfolio } from "@/config";
 import { MagneticButton } from "./MagneticButton";
 import { Avatar } from "./Avatar";
 import { scrollToId } from "@/lib/scroll";
-import { downloadResume } from "@/lib/resume";
 
 const icons = { Github, Linkedin, Instagram, Mail, Globe };
 
