@@ -134,8 +134,15 @@ export function Contact() {
             )}
             <p className="flex items-center gap-3 text-sm text-muted-foreground">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-accent">
+                <Phone className="h-4 w-4" />
+              </span>
+              {portfolio.person.phone} ({portfolio.person.phoneNote})
+            </p>
+            <p className="flex items-center gap-3 text-sm text-muted-foreground">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-accent">
                 <MapPin className="h-4 w-4" />
               </span>
+
               {portfolio.person.location}
             </p>
           </div>
