@@ -69,25 +69,21 @@ export function Contact() {
 
     setLoading(true);
     try {
-      const endpoint = portfolio.contact.formEndpoint;
-      if (endpoint) {
-        // Ready for Formspree / any POST endpoint.
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify(values),
-        });
-        if (!res.ok) throw new Error("Request failed");
-      } else {
-        await new Promise((r) => setTimeout(r, 1400));
-      }
-      toast.success("Message sent — I'll get back to you shortly.");
+      await send({
+        data: {
+          name: values.name.trim(),
+          email: values.email.trim(),
+          message: values.message.trim(),
+        },
+      });
+      toast.success("Message sent — it's in my inbox. I'll get back to you shortly.");
       setValues({ name: "", email: "", message: "" });
     } catch {
       toast.error("Something went wrong. Please email me directly.");
     } finally {
       setLoading(false);
     }
+
   }
 
   const inputBase =
