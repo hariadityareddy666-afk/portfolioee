@@ -1,10 +1,13 @@
 import { motion } from "framer-motion";
-import { Check, Copy, Loader2, Mail, MapPin, Send } from "lucide-react";
+import { Check, Copy, Loader2, Mail, MapPin, Phone, Send } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
 import { portfolio } from "@/config";
+import { sendContactMessage } from "@/lib/contact.functions";
 import { cn } from "@/lib/utils";
 import { Section } from "./Section";
+
 
 type Fields = { name: string; email: string; message: string };
 type Errors = Partial<Record<keyof Fields, string>>;
