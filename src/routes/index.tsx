@@ -20,10 +20,39 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: portfolio.meta.title },
       { name: "description", content: portfolio.meta.description },
+      { name: "keywords", content: portfolio.meta.keywords },
+      { name: "author", content: portfolio.person.name },
       { property: "og:title", content: portfolio.meta.title },
       { property: "og:description", content: portfolio.meta.description },
       { property: "og:type", content: "profile" },
+      { property: "og:url", content: "/" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: portfolio.person.name,
+          jobTitle: portfolio.person.role,
+          email: `mailto:${portfolio.person.email}`,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Tamil Nadu",
+            addressCountry: "IN",
+          },
+          alumniOf: {
+            "@type": "CollegeOrUniversity",
+            name: "Takshashila University",
+          },
+          knowsAbout: portfolio.skills,
+          sameAs: portfolio.socials
+            .filter((s) => s.href.startsWith("http"))
+            .map((s) => s.href),
+        }),
+      },
     ],
   }),
   component: Index,
@@ -42,8 +71,10 @@ function Index() {
         <About />
         <Projects />
         {portfolio.experience.length > 0 && <Experience />}
+        <Blog />
         <Contact />
       </main>
+
       <Footer />
       <BackToTop />
       <Toaster position="bottom-right" />
