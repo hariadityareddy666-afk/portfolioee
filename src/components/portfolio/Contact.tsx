@@ -1,10 +1,13 @@
 import { motion } from "framer-motion";
-import { Check, Copy, Loader2, Mail, MapPin, Send } from "lucide-react";
+import { Check, Copy, Loader2, Mail, MapPin, Phone, Send } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
+import { useServerFn } from "@tanstack/react-start";
 import { portfolio } from "@/config";
+import { sendContactMessage } from "@/lib/contact.functions";
 import { cn } from "@/lib/utils";
 import { Section } from "./Section";
+
 
 type Fields = { name: string; email: string; message: string };
 type Errors = Partial<Record<keyof Fields, string>>;
@@ -28,6 +31,8 @@ export function Contact() {
   const [errors, setErrors] = useState<Errors>({});
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const send = useServerFn(sendContactMessage);
+
 
   async function copyEmail() {
     const email = portfolio.person.email;
@@ -66,25 +71,21 @@ export function Contact() {
 
     setLoading(true);
     try {
-      const endpoint = portfolio.contact.formEndpoint;
-      if (endpoint) {
-        // Ready for Formspree / any POST endpoint.
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify(values),
-        });
-        if (!res.ok) throw new Error("Request failed");
-      } else {
-        await new Promise((r) => setTimeout(r, 1400));
-      }
-      toast.success("Message sent — I'll get back to you shortly.");
+      await send({
+        data: {
+          name: values.name.trim(),
+          email: values.email.trim(),
+          message: values.message.trim(),
+        },
+      });
+      toast.success("Message sent — it's in my inbox. I'll get back to you shortly.");
       setValues({ name: "", email: "", message: "" });
     } catch {
       toast.error("Something went wrong. Please email me directly.");
     } finally {
       setLoading(false);
     }
+
   }
 
   const inputBase =
@@ -133,8 +134,15 @@ export function Contact() {
             )}
             <p className="flex items-center gap-3 text-sm text-muted-foreground">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-accent">
+                <Phone className="h-4 w-4" />
+              </span>
+              {portfolio.person.phone} ({portfolio.person.phoneNote})
+            </p>
+            <p className="flex items-center gap-3 text-sm text-muted-foreground">
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-accent">
                 <MapPin className="h-4 w-4" />
               </span>
+
               {portfolio.person.location}
             </p>
           </div>

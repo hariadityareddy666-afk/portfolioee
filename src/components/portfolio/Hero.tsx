@@ -4,7 +4,6 @@ import { portfolio } from "@/config";
 import { MagneticButton } from "./MagneticButton";
 import { Avatar } from "./Avatar";
 import { scrollToId } from "@/lib/scroll";
-import { downloadResume } from "@/lib/resume";
 
 const icons = { Github, Linkedin, Instagram, Mail, Globe };
 
@@ -76,16 +75,13 @@ export function Hero() {
 
           <MagneticButton
             className="border border-glass-border bg-glass text-foreground hover:bg-secondary/60"
-            {...(person.resumeUrl ? { href: person.resumeUrl } : { onClick: downloadResume })}
-            ariaLabel={
-              person.resumeUrl
-                ? "View resume (opens in a new tab)"
-                : "Download resume"
-            }
+            href="/resume"
+            ariaLabel="View my full resume"
           >
             <FileText className="h-4 w-4" />
             Resume
           </MagneticButton>
+
         </motion.div>
 
         <motion.ul variants={item} className="mt-12 flex flex-wrap items-center gap-3">
