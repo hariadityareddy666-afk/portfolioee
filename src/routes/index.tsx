@@ -7,6 +7,7 @@ import { SkillsMarquee } from "@/components/portfolio/SkillsMarquee";
 import { About } from "@/components/portfolio/About";
 import { Projects } from "@/components/portfolio/Projects";
 import { Experience } from "@/components/portfolio/Experience";
+import { Blog } from "@/components/portfolio/Blog";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { SmoothScroll } from "@/components/portfolio/SmoothScroll";
