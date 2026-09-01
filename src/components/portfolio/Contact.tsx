@@ -31,6 +31,8 @@ export function Contact() {
   const [errors, setErrors] = useState<Errors>({});
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const send = useServerFn(sendContactMessage);
+
 
   async function copyEmail() {
     const email = portfolio.person.email;
