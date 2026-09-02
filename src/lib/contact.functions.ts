@@ -1,10 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { verifyChallenge } from "./captcha.server";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Invalid email address").max(255),
   message: z.string().trim().min(12, "Message is too short").max(2000),
+  captchaToken: z.string().min(1).max(300),
+  captchaAnswer: z.string().trim().min(1).max(10),
+  /** Honeypot — must stay empty; bots tend to fill it in. */
+  website: z.string().max(200).optional(),
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;
@@ -23,6 +28,16 @@ function escapeHtml(value: string) {
 export const sendContactMessage = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => contactSchema.parse(data))
   .handler(async ({ data }) => {
+    if (data.website && data.website.trim().length > 0) {
+      // Silently accept: never tell a bot it was caught.
+      return { sent: true as const };
+    }
+
+    const captchaOk = await verifyChallenge(data.captchaToken, data.captchaAnswer);
+    if (!captchaOk) {
+      throw new Error("CAPTCHA_FAILED");
+    }
+
     const lovableApiKey = process.env["LOVABLE_API_KEY"];
     const resendApiKey = process.env["RESEND_API_KEY"];
 

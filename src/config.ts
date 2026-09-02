@@ -85,8 +85,10 @@ export const portfolio = {
     phone: "+91 95159 69666",
     phoneNote: "WhatsApp only",
     resumeFileName: "Hari-Aditya-Reddy-Resume.pdf",
-    /** Hosted PDF of the resume — used as the download on the resume page. */
-    resumeUrl: resumeAsset.url,
+    /** Generated on the fly from this config at /resume.pdf — always in sync. */
+    resumeUrl: "/resume.pdf",
+    /** Previous static upload, kept as an archive reference. */
+    resumeArchiveUrl: resumeAsset.url,
     photoUrl: profilePhotoAsset.url,
     bio: [
       "I'm Hari Aditya Reddy, a first-year B.Tech student at Takshashila University in Tamil Nadu, originally from Sompeta in Srikakulam District, Andhra Pradesh.",

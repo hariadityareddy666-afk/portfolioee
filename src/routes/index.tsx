@@ -65,8 +65,14 @@ function Index() {
       <SmoothScroll />
       <AnimatedBackground />
       <ScrollProgress />
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-primary focus:px-5 focus:py-2.5 focus:text-sm focus:font-medium focus:text-primary-foreground"
+      >
+        Skip to main content
+      </a>
       <Navbar />
-      <main>
+      <main id="main" tabIndex={-1}>
         <Hero />
         {portfolio.skills.length > 0 && <SkillsMarquee />}
         <About />
