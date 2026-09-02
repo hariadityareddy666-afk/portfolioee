@@ -10,6 +10,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const urls: { loc: string; priority: string }[] = [
           { loc: "/", priority: "1.0" },
           { loc: "/resume", priority: "0.8" },
+          { loc: "/resume.pdf", priority: "0.5" },
           ...portfolio.blog.posts
             .filter((p) => !p.externalUrl)
             .map((p) => ({ loc: `/blog/${p.slug}`, priority: "0.6" })),
