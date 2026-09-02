@@ -68,7 +68,7 @@ function ProjectCard({ project }: { project: Project }) {
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-foreground transition-colors hover:text-accent"
+              className="inline-flex items-center gap-1.5 rounded-md text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Live site <ArrowUpRight className="h-4 w-4" />
             </a>
@@ -78,7 +78,7 @@ function ProjectCard({ project }: { project: Project }) {
               href={project.repoUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-foreground"
+              className="inline-flex items-center gap-1.5 rounded-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <Github className="h-4 w-4" /> Code
             </a>
@@ -118,7 +118,7 @@ export function Projects() {
             target="_blank"
             rel="noreferrer noopener"
             aria-label="Visit my GitHub profile (opens in a new tab)"
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-glass-border px-5 py-2.5 text-sm transition-colors hover:border-accent/50 hover:text-accent"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-glass-border px-5 py-2.5 text-sm transition-colors hover:border-accent/50 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <Github className="h-4 w-4" /> View GitHub
           </a>
@@ -132,6 +132,7 @@ export function Projects() {
             onClick={() => setFilter(f)}
             className={cn(
               "relative rounded-full px-4 py-2 text-sm transition-colors",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
               filter === f
                 ? "text-primary-foreground"
                 : "border border-glass-border text-muted-foreground hover:text-foreground",

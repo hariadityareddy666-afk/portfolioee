@@ -60,7 +60,7 @@ export function Blog() {
                   href={post.externalUrl}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="inline-flex items-center gap-1.5 text-foreground transition-colors hover:text-accent"
+                  className="inline-flex items-center gap-1.5 rounded-md text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   Read more <ArrowUpRight className="h-4 w-4" />
                 </a>
@@ -68,7 +68,7 @@ export function Blog() {
                 <Link
                   to="/blog/$slug"
                   params={{ slug: post.slug }}
-                  className="inline-flex items-center gap-1.5 text-foreground transition-colors hover:text-accent"
+                  className="inline-flex items-center gap-1.5 rounded-md text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   Read more <ArrowUpRight className="h-4 w-4" />
                 </Link>

@@ -92,6 +92,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      {
+        rel: "alternate",
+        type: "application/rss+xml",
+        title: "Hari Aditya Reddy — Blog",
+        href: "/rss.xml",
+      },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
