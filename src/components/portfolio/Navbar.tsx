@@ -40,10 +40,10 @@ export function Navbar() {
       >
         <button
           onClick={() => go("hero")}
-          className=cn(
+          className={cn(
             "group flex items-center gap-2 rounded-lg font-display text-sm font-bold tracking-tight",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          )
+          )}
         >
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
             {portfolio.person.firstName.charAt(0)}
