@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Rss } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { portfolio } from "@/config";
 import { Section } from "./Section";
@@ -23,6 +23,18 @@ export function Blog() {
       title={portfolio.blog.heading}
       intro={portfolio.blog.subheading}
     >
+      <div className="mb-8 flex justify-start">
+        <a
+          href="/rss.xml"
+          target="_blank"
+          rel="noreferrer noopener"
+          aria-label="Subscribe to the RSS feed (opens in a new tab)"
+          className="inline-flex items-center gap-2 rounded-full border border-glass-border px-4 py-2 text-xs text-muted-foreground transition-colors hover:border-accent/50 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          <Rss className="h-3.5 w-3.5" aria-hidden="true" /> Subscribe via RSS
+        </a>
+      </div>
+
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post, i) => (
           <motion.article
