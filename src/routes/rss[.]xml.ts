@@ -23,7 +23,6 @@ export const Route = createFileRoute("/rss.xml")({
           .map((post) => {
             const link = post.externalUrl ?? `${origin}/blog/${post.slug}`;
             const description = escapeXml(post.excerpt);
-            const content = escapeXml(post.body.join("\n\n"));
             return `    <item>
       <title>${escapeXml(post.title)}</title>
       <link>${escapeXml(link)}</link>
@@ -32,7 +31,6 @@ export const Route = createFileRoute("/rss.xml")({
       <description>${description}</description>
       <content:encoded><![CDATA[${post.body.join("\n\n")}]]></content:encoded>
       ${post.tags.map((t) => `<category>${escapeXml(t)}</category>`).join("\n      ")}
-      <!-- ${content.slice(0, 0)} -->
     </item>`;
           })
           .join("\n");
