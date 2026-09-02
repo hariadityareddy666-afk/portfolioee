@@ -1,15 +1,16 @@
 import { motion } from "framer-motion";
 import { Check, Copy, Loader2, Mail, MapPin, Phone, Send } from "lucide-react";
-import { useState, type FormEvent } from "react";
+import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { portfolio } from "@/config";
 import { sendContactMessage } from "@/lib/contact.functions";
+import { getCaptchaChallenge } from "@/lib/captcha.functions";
 import { cn } from "@/lib/utils";
 import { Section } from "./Section";
 
 
-type Fields = { name: string; email: string; message: string };
+type Fields = { name: string; email: string; message: string; captcha: string };
 type Errors = Partial<Record<keyof Fields, string>>;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -23,15 +24,36 @@ function validate(values: Fields): Errors {
   if (!values.message.trim()) errors.message = "Please add a short message.";
   else if (values.message.trim().length < 12)
     errors.message = "A little more detail helps (12+ characters).";
+  if (!values.captcha.trim()) errors.captcha = "Please answer the anti-spam question.";
   return errors;
 }
 
 export function Contact() {
-  const [values, setValues] = useState<Fields>({ name: "", email: "", message: "" });
+  const [values, setValues] = useState<Fields>({
+    name: "",
+    email: "",
+    message: "",
+    captcha: "",
+  });
+  const [honeypot, setHoneypot] = useState("");
+  const [captcha, setCaptcha] = useState<{ question: string; token: string } | null>(null);
   const [errors, setErrors] = useState<Errors>({});
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const send = useServerFn(sendContactMessage);
+  const loadCaptcha = useServerFn(getCaptchaChallenge);
+
+  const refreshCaptcha = useCallback(async () => {
+    try {
+      setCaptcha(await loadCaptcha({}));
+    } catch {
+      setCaptcha(null);
+    }
+  }, [loadCaptcha]);
+
+  useEffect(() => {
+    void refreshCaptcha();
+  }, [refreshCaptcha]);
 
 
   async function copyEmail() {
@@ -76,12 +98,23 @@ export function Contact() {
           name: values.name.trim(),
           email: values.email.trim(),
           message: values.message.trim(),
+          captchaToken: captcha?.token ?? "",
+          captchaAnswer: values.captcha.trim(),
+          website: honeypot,
         },
       });
       toast.success("Message sent — it's in my inbox. I'll get back to you shortly.");
-      setValues({ name: "", email: "", message: "" });
-    } catch {
-      toast.error("Something went wrong. Please email me directly.");
+      setValues({ name: "", email: "", message: "", captcha: "" });
+      void refreshCaptcha();
+    } catch (err) {
+      const failedCaptcha = String(err).includes("CAPTCHA_FAILED");
+      toast.error(
+        failedCaptcha
+          ? "That anti-spam answer wasn't right. Please try the new question."
+          : "Something went wrong. Please email me directly.",
+      );
+      setValues((v) => ({ ...v, captcha: "" }));
+      void refreshCaptcha();
     } finally {
       setLoading(false);
     }
@@ -89,7 +122,7 @@ export function Contact() {
   }
 
   const inputBase =
-    "w-full rounded-xl border bg-background/40 px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground/70 focus:border-primary focus:ring-2 focus:ring-primary/25";
+    "w-full rounded-xl border bg-background/40 px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground/70 focus:border-primary focus:ring-2 focus:ring-primary/25 focus-visible:outline-none";
 
   return (
     <Section
@@ -122,7 +155,7 @@ export function Contact() {
                   type="button"
                   onClick={copyEmail}
                   aria-label={copied ? "Email address copied" : "Copy email address"}
-                  className="grid h-8 w-8 place-items-center rounded-full border border-glass-border bg-secondary/40 text-muted-foreground transition-colors hover:text-accent"
+                  className="grid h-8 w-8 place-items-center rounded-full border border-glass-border bg-secondary/40 text-muted-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   {copied ? (
                     <Check className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
@@ -218,10 +251,59 @@ export function Contact() {
             )}
           </div>
 
+          <div>
+            <label htmlFor="captcha" className="mb-2 block text-sm font-medium">
+              Anti-spam check
+              <span className="ml-2 font-normal text-muted-foreground">
+                {captcha ? captcha.question : "Loading question…"}
+              </span>
+            </label>
+            <div className="flex items-center gap-3">
+              <input
+                id="captcha"
+                inputMode="numeric"
+                autoComplete="off"
+                value={values.captcha}
+                onChange={(e) => set("captcha", e.target.value)}
+                placeholder="Answer"
+                aria-invalid={Boolean(errors.captcha)}
+                aria-describedby={errors.captcha ? "captcha-error" : undefined}
+                className={cn(
+                  inputBase,
+                  "max-w-[10rem]",
+                  errors.captcha ? "border-destructive" : "border-glass-border",
+                )}
+              />
+              <button
+                type="button"
+                onClick={() => void refreshCaptcha()}
+                className="rounded-full border border-glass-border px-4 py-2 text-xs text-muted-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                New question
+              </button>
+            </div>
+            {errors.captcha && (
+              <p id="captcha-error" className="mt-2 text-xs text-destructive">
+                {errors.captcha}
+              </p>
+            )}
+          </div>
+
+          <div aria-hidden="true" className="hidden">
+            <label htmlFor="website">Leave this field empty</label>
+            <input
+              id="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+            />
+          </div>
+
           <button
             type="submit"
             disabled={loading}
-            className="glow-ring inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-95 disabled:opacity-60 sm:w-auto"
+            className="glow-ring inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:opacity-60 sm:w-auto"
           >
             {loading ? (
               <>
