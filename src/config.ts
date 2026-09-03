@@ -6,6 +6,9 @@
  */
 import profilePhotoAsset from "./assets/profile-photo.jpg.asset.json";
 import resumeAsset from "./assets/resume.pdf.asset.json";
+import blogHackathonImg from "./assets/blog-hackathon.jpg";
+import blogDsaImg from "./assets/blog-dsa.jpg";
+import blogWebdevImg from "./assets/blog-webdev.jpg";
 
 export type ProjectCategory = "Frontend" | "Backend" | "Fullstack";
 
@@ -53,7 +56,18 @@ export interface BlogPost {
   tags: string[];
   /** Set for posts hosted elsewhere; otherwise the post renders at /blog/{slug}. */
   externalUrl?: string;
+  coverImage?: string;
+  coverAlt?: string;
   body: string[];
+}
+
+export interface Milestone {
+  id: string;
+  year: string;
+  title: string;
+  description: string;
+  /** lucide-react icon name */
+  icon: "GraduationCap" | "Trophy" | "Code2" | "Rocket" | "Sparkles";
 }
 
 export interface SocialLink {
@@ -121,9 +135,60 @@ export const portfolio = {
     { id: "hero", label: "Home" },
     { id: "about", label: "About" },
     { id: "projects", label: "Projects" },
+    { id: "timeline", label: "Timeline" },
     { id: "blog", label: "Blog" },
     { id: "contact", label: "Contact" },
   ],
+
+  /** Standalone pages linked from the navbar. */
+  pages: [
+    { to: "/about", label: "About me" },
+    { to: "/portfolio", label: "Portfolio" },
+    { to: "/resume", label: "Resume" },
+  ] as { to: "/about" | "/portfolio" | "/resume"; label: string }[],
+
+  milestones: [
+    {
+      id: "school",
+      year: "2024",
+      title: "Finished school in Sompeta",
+      description:
+        "Wrapped up school in Sompeta, Srikakulam District, and started teaching myself to code with C and Python in the gap before university.",
+      icon: "Sparkles",
+    },
+    {
+      id: "first-code",
+      year: "2024",
+      title: "First programs that actually ran",
+      description:
+        "Built a Python calculator with real input validation and hand-coded my first web page with HTML and CSS.",
+      icon: "Code2",
+    },
+    {
+      id: "btech",
+      year: "2025",
+      title: "Started B.Tech at Takshashila University",
+      description:
+        "Joined the first-year B.Tech cohort in Tamil Nadu and became an active member of the college coding club.",
+      icon: "GraduationCap",
+    },
+    {
+      id: "base44",
+      year: "2025",
+      title: "First place, Base44 hackathon",
+      description:
+        "Won the university-wide Base44 hackathon by scoping ruthlessly and shipping a build that actually worked on demo day.",
+      icon: "Trophy",
+    },
+    {
+      id: "now",
+      year: "2026",
+      title: "Building in public, heading toward AI",
+      description:
+        "Practising DSA in C++, shipping web projects like this site, and starting on machine learning fundamentals.",
+      icon: "Rocket",
+    },
+  ] as Milestone[],
 
   skills: [
     "C",
@@ -188,6 +253,9 @@ export const portfolio = {
     "Completed online certification in Python basics.",
     "Active member of the college coding club.",
   ] as string[],
+
+  personalStatement:
+    "I care about finishing things. I would rather ship a small program that works than plan a large one that never runs. Right now that means learning the fundamentals properly — C, C++, Python, data structures — and turning each one into something I can point at. Coming from a small town in Andhra Pradesh, the internet is what taught me to build, so I try to build in public and share what I learn along the way.",
 
   interests: [
     "Exploring new programming languages",
@@ -274,6 +342,8 @@ export const portfolio = {
         date: "2026-02-14",
         readingTime: "4 min read",
         tags: ["Hackathon", "Teamwork"],
+        coverImage: blogHackathonImg,
+        coverAlt: "Glowing neon trophy over a dark wireframe landscape",
         body: [
           "Going into the Base44 hackathon I assumed the winning team would be the one with the cleverest idea. It wasn't. It was the team whose demo worked.",
           "We spent the first hour arguing about features and the next hour cutting almost all of them. What was left was small enough that we could actually finish it, test it, and rehearse the demo twice before presenting.",
@@ -289,6 +359,8 @@ export const portfolio = {
         date: "2026-01-08",
         readingTime: "5 min read",
         tags: ["DSA", "C++"],
+        coverImage: blogDsaImg,
+        coverAlt: "Cyan nodes and edges forming a data structure graph on a dark background",
         body: [
           "Data structures and algorithms felt impossible when I started. Every solution online looked like it came from someone who already knew the answer.",
           "What changed things for me was writing every solution twice: once badly, on my own, and once again after reading a better approach. The second version is where the learning happens, because you can feel exactly which part of your thinking was wrong.",
@@ -304,6 +376,8 @@ export const portfolio = {
         date: "2025-11-22",
         readingTime: "4 min read",
         tags: ["Web development", "JavaScript"],
+        coverImage: blogWebdevImg,
+        coverAlt: "Neon browser window wireframe surrounded by floating UI component blocks",
         body: [
           "My first portfolio was a single HTML file with a stylesheet next to it. It worked, and I was proud of it, but every change meant editing the same markup in four places.",
           "The shift happened when I stopped thinking about pages and started thinking about pieces: a card, a nav, a section — each one described once and reused.",
