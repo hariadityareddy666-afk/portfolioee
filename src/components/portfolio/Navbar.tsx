@@ -51,7 +51,7 @@ export function Navbar() {
           <span className="hidden sm:inline">{portfolio.person.name}</span>
         </button>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {portfolio.nav.map((item) => (
             <li key={item.id}>
               <button
@@ -74,6 +74,20 @@ export function Navbar() {
                 )}
                 {item.label}
               </button>
+            </li>
+          ))}
+
+          <li aria-hidden className="mx-1 h-5 w-px bg-glass-border" />
+
+          {portfolio.pages.map((page) => (
+            <li key={page.to}>
+              <Link
+                to={page.to}
+                activeProps={{ "aria-current": "page", className: "text-foreground" }}
+                className="rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                {page.label}
+              </Link>
             </li>
           ))}
         </ul>
