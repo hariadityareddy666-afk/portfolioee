@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { portfolio } from "@/config";
+import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { AnimatedBackground } from "@/components/portfolio/AnimatedBackground";
 import { Footer } from "@/components/portfolio/Footer";
@@ -30,10 +31,10 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:title", content: title },
         { property: "og:description", content: post.excerpt },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `/blog/${params.slug}` },
+        { property: "og:url", content: `${SITE_URL}/blog/${params.slug}` },
         { name: "twitter:card", content: "summary_large_image" },
       ],
-      links: [{ rel: "canonical", href: `/blog/${params.slug}` }],
+      links: [{ rel: "canonical", href: `${SITE_URL}/blog/${params.slug}` }],
       scripts: [
         {
           type: "application/ld+json",

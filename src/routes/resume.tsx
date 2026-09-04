@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Download, Mail, MapPin, Phone } from "lucide-react";
 import { portfolio } from "@/config";
+import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { AnimatedBackground } from "@/components/portfolio/AnimatedBackground";
 import { Footer } from "@/components/portfolio/Footer";
@@ -16,10 +17,10 @@ export const Route = createFileRoute("/resume")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "profile" },
-      { property: "og:url", content: "/resume" },
+      { property: "og:url", content: `${SITE_URL}/resume` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/resume" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/resume` }],
   }),
   component: ResumePage,
 });
