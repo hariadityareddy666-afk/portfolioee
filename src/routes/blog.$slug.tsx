@@ -85,6 +85,18 @@ function BlogPostPage() {
             {post.title}
           </h1>
 
+          {post.coverImage && (
+            <img
+              src={post.coverImage}
+              alt={post.coverAlt ?? ""}
+              width={1200}
+              height={800}
+              loading="lazy"
+              decoding="async"
+              className="mt-8 aspect-[3/2] w-full rounded-3xl border border-glass-border object-cover"
+            />
+          )}
+
           <ul className="mt-6 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
               <li
