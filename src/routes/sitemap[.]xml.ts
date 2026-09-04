@@ -9,6 +9,8 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         const urls: { loc: string; priority: string }[] = [
           { loc: "/", priority: "1.0" },
+          { loc: "/about", priority: "0.9" },
+          { loc: "/portfolio", priority: "0.9" },
           { loc: "/resume", priority: "0.8" },
           { loc: "/resume.pdf", priority: "0.5" },
           ...portfolio.blog.posts

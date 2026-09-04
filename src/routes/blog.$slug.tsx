@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { portfolio } from "@/config";
+import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { AnimatedBackground } from "@/components/portfolio/AnimatedBackground";
 import { Footer } from "@/components/portfolio/Footer";
@@ -30,10 +31,10 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:title", content: title },
         { property: "og:description", content: post.excerpt },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `/blog/${params.slug}` },
+        { property: "og:url", content: `${SITE_URL}/blog/${params.slug}` },
         { name: "twitter:card", content: "summary_large_image" },
       ],
-      links: [{ rel: "canonical", href: `/blog/${params.slug}` }],
+      links: [{ rel: "canonical", href: `${SITE_URL}/blog/${params.slug}` }],
       scripts: [
         {
           type: "application/ld+json",
@@ -83,6 +84,18 @@ function BlogPostPage() {
           <h1 className="mt-4 text-4xl font-bold leading-tight sm:text-5xl">
             {post.title}
           </h1>
+
+          {post.coverImage && (
+            <img
+              src={post.coverImage}
+              alt={post.coverAlt ?? ""}
+              width={1200}
+              height={800}
+              loading="lazy"
+              decoding="async"
+              className="mt-8 aspect-[3/2] w-full rounded-3xl border border-glass-border object-cover"
+            />
+          )}
 
           <ul className="mt-6 flex flex-wrap gap-2">
             {post.tags.map((tag) => (

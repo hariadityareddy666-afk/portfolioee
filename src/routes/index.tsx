@@ -14,7 +14,9 @@ import { SmoothScroll } from "@/components/portfolio/SmoothScroll";
 import { BackToTop } from "@/components/portfolio/BackToTop";
 import { ScrollProgress } from "@/components/portfolio/ScrollProgress";
 import { ThemeProvider } from "@/hooks/useTheme";
+import { Timeline } from "@/components/portfolio/Timeline";
 import { portfolio } from "@/config";
+import { SITE_URL } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,10 +28,10 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: portfolio.meta.title },
       { property: "og:description", content: portfolio.meta.description },
       { property: "og:type", content: "profile" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: `${SITE_URL}/` },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: `${SITE_URL}/` }],
     scripts: [
       {
         type: "application/ld+json",
@@ -37,6 +39,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "Person",
           name: portfolio.person.name,
+          url: SITE_URL,
           jobTitle: portfolio.person.role,
           email: `mailto:${portfolio.person.email}`,
           address: {
@@ -77,6 +80,7 @@ function Index() {
         {portfolio.skills.length > 0 && <SkillsMarquee />}
         <About />
         <Projects />
+        <Timeline />
         {portfolio.experience.length > 0 && <Experience />}
         <Blog />
         <Contact />

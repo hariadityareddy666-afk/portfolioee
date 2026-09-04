@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { useMemo, useState, type MouseEvent } from "react";
 import { portfolio, type Project } from "@/config";
 import { cn } from "@/lib/utils";
@@ -157,6 +158,17 @@ export function Projects() {
           ))}
         </AnimatePresence>
       </motion.div>
+
+      <div className="mt-12">
+        <Link
+          to="/portfolio"
+          search={{ filter: filter as "All" | "Frontend" | "Backend" | "Fullstack" }}
+          className="inline-flex items-center gap-2 rounded-full border border-glass-border px-5 py-2.5 text-sm transition-colors hover:border-accent/50 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          Open the full portfolio
+          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+      </div>
       </>
       )}
     </Section>
