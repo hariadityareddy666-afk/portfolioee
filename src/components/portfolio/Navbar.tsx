@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { portfolio } from "@/config";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useTheme } from "@/hooks/useTheme";
@@ -127,7 +128,7 @@ export function Navbar() {
             onClick={() => setOpen((o) => !o)}
             aria-label="Toggle navigation menu"
             aria-expanded={open}
-            className="grid h-9 w-9 place-items-center rounded-full border border-glass-border bg-secondary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
+            className="grid h-9 w-9 place-items-center rounded-full border border-glass-border bg-secondary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background lg:hidden"
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -140,7 +141,7 @@ export function Navbar() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            className="glass mx-auto mt-2 w-full max-w-6xl overflow-hidden rounded-2xl p-2 md:hidden"
+            className="glass mx-auto mt-2 w-full max-w-6xl overflow-hidden rounded-2xl p-2 lg:hidden"
           >
             {portfolio.nav.map((item) => (
               <li key={item.id}>
@@ -156,6 +157,21 @@ export function Navbar() {
                 >
                   {item.label}
                 </button>
+              </li>
+            ))}
+
+            <li aria-hidden className="my-2 h-px bg-glass-border" />
+
+            {portfolio.pages.map((page) => (
+              <li key={page.to}>
+                <Link
+                  to={page.to}
+                  onClick={() => setOpen(false)}
+                  activeProps={{ "aria-current": "page" }}
+                  className="block rounded-xl px-4 py-3 text-left text-sm text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                >
+                  {page.label}
+                </Link>
               </li>
             ))}
           </motion.ul>
