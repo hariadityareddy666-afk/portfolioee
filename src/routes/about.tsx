@@ -10,7 +10,7 @@ import { Footer } from "@/components/portfolio/Footer";
 import { BackToTop } from "@/components/portfolio/BackToTop";
 
 const TITLE = `About — ${portfolio.person.name}`;
-const DESCRIPTION = `About ${portfolio.person.name}: B.Tech student at Takshashila University, from Sompeta in Andhra Pradesh — education, achievements and what I care about as a developer.`;
+const DESCRIPTION = `About ${portfolio.person.name}: developer from Sompeta, Srikakulam district, Andhra Pradesh, and B.Tech student at Takshashila University — education, achievements and what I care about as a developer.`;
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -24,6 +24,28 @@ export const Route = createFileRoute("/about")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/about` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          url: `${SITE_URL}/about`,
+          mainEntity: {
+            "@type": "Person",
+            name: portfolio.person.name,
+            url: SITE_URL,
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: portfolio.person.address.locality,
+              addressRegion: portfolio.person.address.region,
+              postalCode: portfolio.person.address.postalCode,
+              addressCountry: portfolio.person.address.country,
+            },
+          },
+        }),
+      },
+    ],
   }),
   component: AboutPage,
 });

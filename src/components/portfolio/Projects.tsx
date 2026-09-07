@@ -159,7 +159,7 @@ export function Projects() {
         </AnimatePresence>
       </motion.div>
 
-      <div className="mt-12">
+      <div className="mt-12 flex flex-wrap gap-3">
         <Link
           to="/portfolio"
           search={{ filter: filter as "All" | "Frontend" | "Backend" | "Fullstack" }}
@@ -167,6 +167,13 @@ export function Projects() {
         >
           Open the full portfolio
           <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+        <Link
+          to="/repositories"
+          className="inline-flex items-center gap-2 rounded-full border border-glass-border px-5 py-2.5 text-sm transition-colors hover:border-accent/50 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          <Github className="h-4 w-4" aria-hidden="true" />
+          Browse all repositories
         </Link>
       </div>
       </>
