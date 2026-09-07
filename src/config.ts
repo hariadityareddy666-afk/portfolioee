@@ -81,9 +81,9 @@ export const portfolio = {
   meta: {
     title: "Hari Aditya Reddy — Developer & B.Tech Student in India",
     description:
-      "Portfolio of Hari Aditya Reddy, a developer and B.Tech student at Takshashila University, Tamil Nadu, India. C, C++, Python and web development projects, resume and blog.",
+      "Portfolio of Hari Aditya Reddy, a developer from Sompeta, Srikakulam district, Andhra Pradesh, and B.Tech student at Takshashila University, Tamil Nadu, India. C, C++, Python and web development projects, resume and blog.",
     keywords:
-      "Hari Aditya Reddy, developer India, B.Tech student portfolio, Takshashila University, Python developer Tamil Nadu, web developer Andhra Pradesh",
+      "Hari Aditya Reddy, developer India, developer Sompeta, Srikakulam district, B.Tech student portfolio, Takshashila University, Python developer Tamil Nadu, web developer Andhra Pradesh",
   },
 
   person: {
@@ -94,6 +94,16 @@ export const portfolio = {
       "First-year B.Tech student turning curiosity into working software — one project, one commit at a time.",
     location: "Tamil Nadu, India",
     homeTown: "Sompeta, Srikakulam District, Andhra Pradesh, India",
+    githubUsername: "hariadityareddy666-afk",
+    /** Structured postal address — used for Google-readable schema.org data. */
+    address: {
+      street: "",
+      locality: "Sompeta",
+      district: "Srikakulam",
+      region: "Andhra Pradesh",
+      postalCode: "532284",
+      country: "IN",
+    },
     availability: "Open to internships & collaborations",
     email: "hariadityareddy666@gmail.com",
     phone: "+91 95159 69666",
@@ -144,8 +154,9 @@ export const portfolio = {
   pages: [
     { to: "/about", label: "About me" },
     { to: "/portfolio", label: "Portfolio" },
+    { to: "/repositories", label: "Repositories" },
     { to: "/resume", label: "Resume" },
-  ] as { to: "/about" | "/portfolio" | "/resume"; label: string }[],
+  ] as { to: "/about" | "/portfolio" | "/repositories" | "/resume"; label: string }[],
 
   milestones: [
     {
