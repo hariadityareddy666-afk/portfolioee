@@ -42,10 +42,22 @@ export const Route = createFileRoute("/")({
           url: SITE_URL,
           jobTitle: portfolio.person.role,
           email: `mailto:${portfolio.person.email}`,
+          telephone: portfolio.person.phone,
           address: {
             "@type": "PostalAddress",
-            addressLocality: "Tamil Nadu",
-            addressCountry: "IN",
+            streetAddress: portfolio.person.address.street || undefined,
+            addressLocality: portfolio.person.address.locality,
+            addressRegion: portfolio.person.address.region,
+            postalCode: portfolio.person.address.postalCode,
+            addressCountry: portfolio.person.address.country,
+          },
+          homeLocation: {
+            "@type": "Place",
+            name: `${portfolio.person.address.locality}, ${portfolio.person.address.district} district, ${portfolio.person.address.region}, India`,
+          },
+          workLocation: {
+            "@type": "Place",
+            name: portfolio.person.location,
           },
           alumniOf: {
             "@type": "CollegeOrUniversity",

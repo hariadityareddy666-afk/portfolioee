@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as RepositoriesRouteImport } from './routes/repositories'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as ResumeDotpdfRouteImport } from './routes/resume[.]pdf'
 import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
@@ -31,6 +32,11 @@ const AboutRoute = AboutRouteImport.update({
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
   path: '/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RepositoriesRoute = RepositoriesRouteImport.update({
+  id: '/repositories',
+  path: '/repositories',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResumeRoute = ResumeRouteImport.update({
@@ -63,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/portfolio': typeof PortfolioRoute
+  '/repositories': typeof RepositoriesRoute
   '/resume': typeof ResumeRoute
   '/resume.pdf': typeof ResumeDotpdfRoute
   '/rss.xml': typeof RssDotxmlRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/portfolio': typeof PortfolioRoute
+  '/repositories': typeof RepositoriesRoute
   '/resume': typeof ResumeRoute
   '/resume.pdf': typeof ResumeDotpdfRoute
   '/rss.xml': typeof RssDotxmlRoute
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/portfolio': typeof PortfolioRoute
+  '/repositories': typeof RepositoriesRoute
   '/resume': typeof ResumeRoute
   '/resume.pdf': typeof ResumeDotpdfRoute
   '/rss.xml': typeof RssDotxmlRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/portfolio'
+    | '/repositories'
     | '/resume'
     | '/resume.pdf'
     | '/rss.xml'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/portfolio'
+    | '/repositories'
     | '/resume'
     | '/resume.pdf'
     | '/rss.xml'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/portfolio'
+    | '/repositories'
     | '/resume'
     | '/resume.pdf'
     | '/rss.xml'
@@ -127,6 +139,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   PortfolioRoute: typeof PortfolioRoute
+  RepositoriesRoute: typeof RepositoriesRoute
   ResumeRoute: typeof ResumeRoute
   ResumeDotpdfRoute: typeof ResumeDotpdfRoute
   RssDotxmlRoute: typeof RssDotxmlRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/portfolio'
       fullPath: '/portfolio'
       preLoaderRoute: typeof PortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/repositories': {
+      id: '/repositories'
+      path: '/repositories'
+      fullPath: '/repositories'
+      preLoaderRoute: typeof RepositoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resume': {
@@ -199,6 +219,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   PortfolioRoute: PortfolioRoute,
+  RepositoriesRoute: RepositoriesRoute,
   ResumeRoute: ResumeRoute,
   ResumeDotpdfRoute: ResumeDotpdfRoute,
   RssDotxmlRoute: RssDotxmlRoute,
