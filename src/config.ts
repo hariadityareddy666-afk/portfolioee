@@ -21,7 +21,22 @@ export interface Project {
   year: string;
   liveUrl?: string;
   repoUrl?: string;
+  /** Long-form detail shown on /projects/{id}. */
+  overview?: string[];
+  highlights?: string[];
+  role?: string;
 }
+
+export interface CareerRole {
+  id: string;
+  title: string;
+  type: string;
+  location: string;
+  summary: string;
+  responsibilities: string[];
+  requirements: string[];
+}
+
 
 export interface ExperienceItem {
   id: string;
