@@ -391,6 +391,18 @@ export const portfolio = {
       tags: ["Python", "CLI", "Error handling"],
       year: "2025",
       repoUrl: "https://github.com/hariadityareddy666-afk",
+      role: "Solo build",
+      overview: [
+        "This was the first program I wrote that other people could actually use without me sitting next to them. It runs in the terminal, asks for two numbers and an operation, and returns a result — but almost all of the work went into everything that happens when the input is wrong.",
+        "Early versions crashed the moment someone typed a letter instead of a number, or divided by zero. Rewriting it around validation taught me to treat user input as untrusted by default, which is the same instinct I now apply to web forms.",
+        "It stays on my portfolio because it marks the point where I stopped writing code that works only on the happy path.",
+      ],
+      highlights: [
+        "Handles addition, subtraction, multiplication and division with float precision.",
+        "Rejects non-numeric input with a clear message instead of a traceback.",
+        "Guards against division by zero rather than crashing.",
+        "Loops until the user chooses to exit, keeping session state clean.",
+      ],
     },
     {
       id: "portfolio-website",
@@ -401,6 +413,18 @@ export const portfolio = {
       tags: ["HTML", "CSS", "Responsive"],
       year: "2025",
       repoUrl: "https://github.com/hariadityareddy666-afk",
+      role: "Design and build",
+      overview: [
+        "My first website was a single HTML file with one stylesheet beside it. No framework, no build step — just markup, CSS and a lot of reloading the browser to see what changed.",
+        "It forced me to learn the parts that frameworks usually hide: the box model, flexbox, media queries, and why type scale and spacing matter more than colour choices.",
+        "Everything I know about layout came out of this project, and the site you are reading now is its direct descendant.",
+      ],
+      highlights: [
+        "Hand-written semantic HTML with no page builder.",
+        "Responsive layout using flexbox and media queries down to small phones.",
+        "A consistent type scale and spacing system defined once in CSS.",
+        "Loads fast because there is almost nothing to load.",
+      ],
     },
     {
       id: "base44-hackathon",
@@ -411,8 +435,21 @@ export const portfolio = {
       tags: ["Hackathon", "Teamwork", "Rapid prototyping"],
       year: "2025",
       repoUrl: "https://github.com/hariadityareddy666-afk",
+      role: "Team member — build and demo",
+      overview: [
+        "Base44 was a university-wide hackathon at Takshashila University, and our team took first place. The winning move was not a clever idea — it was cutting the idea down until we could finish it.",
+        "We spent the first hour listing features and the second hour deleting most of them. What survived was small enough to build end to end, test properly, and rehearse twice before the demo.",
+        "The result worked on stage, first try, which turned out to be rarer than we expected.",
+      ],
+      highlights: [
+        "First place out of the full university-wide field.",
+        "Working end-to-end build completed inside the time limit.",
+        "Scope cut deliberately in the first two hours to protect the demo.",
+        "Final hour spent on polish and rehearsal instead of new features.",
+      ],
     },
   ] as Project[],
+
 
   experience: [
     {
