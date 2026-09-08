@@ -170,8 +170,97 @@ export const portfolio = {
     { to: "/about", label: "About me" },
     { to: "/portfolio", label: "Portfolio" },
     { to: "/repositories", label: "Repositories" },
+    { to: "/careers", label: "Careers" },
     { to: "/resume", label: "Resume" },
-  ] as { to: "/about" | "/portfolio" | "/repositories" | "/resume"; label: string }[],
+  ] as {
+    to: "/about" | "/portfolio" | "/repositories" | "/careers" | "/resume";
+    label: string;
+  }[],
+
+  careers: {
+    heading: "Careers & collaborations",
+    intro:
+      "I'm Hari Aditya Reddy, a developer from Sompeta, Srikakulam district, Andhra Pradesh, studying B.Tech in Tamil Nadu. These are the roles I'm open to — remote across India, or on-site around Sompeta, Srikakulam and Visakhapatnam in Andhra Pradesh — along with what I'd take on and how to apply.",
+    howToApply: [
+      "Email me at hariadityareddy666@gmail.com with the role, a short description of the work, and a timeline.",
+      "Or send the same details through the contact form on this site — it reaches the same inbox.",
+      "WhatsApp works too for quick questions: +91 95159 69666.",
+      "I usually reply within a day. If it's a fit, I'll share code samples and we can do a short call.",
+    ],
+    roles: [
+      {
+        id: "web-development-intern",
+        title: "Web Development Intern",
+        type: "Internship · Part-time or full-time",
+        location: "Remote (India) or on-site in Sompeta / Srikakulam, Andhra Pradesh",
+        summary:
+          "Front-end work for startups, agencies and local businesses in Srikakulam district and across Andhra Pradesh who need a clean, fast website.",
+        responsibilities: [
+          "Build responsive pages with HTML, CSS and JavaScript.",
+          "Turn designs into working layouts that hold up on mobile.",
+          "Fix bugs, improve page speed and keep the code readable.",
+          "Write clear commit messages and work through GitHub pull requests.",
+        ],
+        requirements: [
+          "Work I can finish and point at — I scope small and ship.",
+          "Clear briefs and honest feedback.",
+          "Flexibility around university hours during term time.",
+        ],
+      },
+      {
+        id: "python-automation",
+        title: "Python / Automation Assistant",
+        type: "Freelance · Project-based",
+        location: "Remote (India), based in Andhra Pradesh",
+        summary:
+          "Small Python tools and scripts — data cleaning, file handling, repetitive tasks that should not be done by hand.",
+        responsibilities: [
+          "Write Python scripts with proper input validation and error handling.",
+          "Automate spreadsheet, file and text-processing chores.",
+          "Document how to run each tool so anyone on the team can use it.",
+        ],
+        requirements: [
+          "A clearly defined task with sample data.",
+          "Agreement on scope before I start.",
+        ],
+      },
+      {
+        id: "open-source-collab",
+        title: "Open-source Collaborator",
+        type: "Volunteer · Ongoing",
+        location: "Remote — anywhere",
+        summary:
+          "Beginner-friendly open-source projects where I can pick up issues, write tests and learn from code review.",
+        responsibilities: [
+          "Pick up good-first-issues and see them through to merge.",
+          "Improve documentation and examples.",
+          "Review and test other contributors' pull requests.",
+        ],
+        requirements: [
+          "A welcoming maintainer and a contributing guide.",
+          "No payment expected — this one is for the learning.",
+        ],
+      },
+      {
+        id: "campus-tech-volunteer",
+        title: "Campus & Community Tech Volunteer",
+        type: "Volunteer · Local",
+        location: "Sompeta and Srikakulam district, Andhra Pradesh",
+        summary:
+          "Helping schools, clubs and small businesses around Sompeta get online — simple websites, basic digital setup and coding workshops for students.",
+        responsibilities: [
+          "Build simple, low-maintenance websites for local organisations.",
+          "Run introductory coding sessions for school and college students in Srikakulam district.",
+          "Help set up email, hosting and basic online presence.",
+        ],
+        requirements: [
+          "Local to Sompeta, Srikakulam or nearby Andhra Pradesh towns.",
+          "Patience — most of this work is teaching, not just coding.",
+        ],
+      },
+    ] as CareerRole[],
+  },
+
 
   milestones: [
     {
