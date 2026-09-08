@@ -21,7 +21,22 @@ export interface Project {
   year: string;
   liveUrl?: string;
   repoUrl?: string;
+  /** Long-form detail shown on /projects/{id}. */
+  overview?: string[];
+  highlights?: string[];
+  role?: string;
 }
+
+export interface CareerRole {
+  id: string;
+  title: string;
+  type: string;
+  location: string;
+  summary: string;
+  responsibilities: string[];
+  requirements: string[];
+}
+
 
 export interface ExperienceItem {
   id: string;
@@ -155,8 +170,97 @@ export const portfolio = {
     { to: "/about", label: "About me" },
     { to: "/portfolio", label: "Portfolio" },
     { to: "/repositories", label: "Repositories" },
+    { to: "/careers", label: "Careers" },
     { to: "/resume", label: "Resume" },
-  ] as { to: "/about" | "/portfolio" | "/repositories" | "/resume"; label: string }[],
+  ] as {
+    to: "/about" | "/portfolio" | "/repositories" | "/careers" | "/resume";
+    label: string;
+  }[],
+
+  careers: {
+    heading: "Careers & collaborations",
+    intro:
+      "I'm Hari Aditya Reddy, a developer from Sompeta, Srikakulam district, Andhra Pradesh, studying B.Tech in Tamil Nadu. These are the roles I'm open to — remote across India, or on-site around Sompeta, Srikakulam and Visakhapatnam in Andhra Pradesh — along with what I'd take on and how to apply.",
+    howToApply: [
+      "Email me at hariadityareddy666@gmail.com with the role, a short description of the work, and a timeline.",
+      "Or send the same details through the contact form on this site — it reaches the same inbox.",
+      "WhatsApp works too for quick questions: +91 95159 69666.",
+      "I usually reply within a day. If it's a fit, I'll share code samples and we can do a short call.",
+    ],
+    roles: [
+      {
+        id: "web-development-intern",
+        title: "Web Development Intern",
+        type: "Internship · Part-time or full-time",
+        location: "Remote (India) or on-site in Sompeta / Srikakulam, Andhra Pradesh",
+        summary:
+          "Front-end work for startups, agencies and local businesses in Srikakulam district and across Andhra Pradesh who need a clean, fast website.",
+        responsibilities: [
+          "Build responsive pages with HTML, CSS and JavaScript.",
+          "Turn designs into working layouts that hold up on mobile.",
+          "Fix bugs, improve page speed and keep the code readable.",
+          "Write clear commit messages and work through GitHub pull requests.",
+        ],
+        requirements: [
+          "Work I can finish and point at — I scope small and ship.",
+          "Clear briefs and honest feedback.",
+          "Flexibility around university hours during term time.",
+        ],
+      },
+      {
+        id: "python-automation",
+        title: "Python / Automation Assistant",
+        type: "Freelance · Project-based",
+        location: "Remote (India), based in Andhra Pradesh",
+        summary:
+          "Small Python tools and scripts — data cleaning, file handling, repetitive tasks that should not be done by hand.",
+        responsibilities: [
+          "Write Python scripts with proper input validation and error handling.",
+          "Automate spreadsheet, file and text-processing chores.",
+          "Document how to run each tool so anyone on the team can use it.",
+        ],
+        requirements: [
+          "A clearly defined task with sample data.",
+          "Agreement on scope before I start.",
+        ],
+      },
+      {
+        id: "open-source-collab",
+        title: "Open-source Collaborator",
+        type: "Volunteer · Ongoing",
+        location: "Remote — anywhere",
+        summary:
+          "Beginner-friendly open-source projects where I can pick up issues, write tests and learn from code review.",
+        responsibilities: [
+          "Pick up good-first-issues and see them through to merge.",
+          "Improve documentation and examples.",
+          "Review and test other contributors' pull requests.",
+        ],
+        requirements: [
+          "A welcoming maintainer and a contributing guide.",
+          "No payment expected — this one is for the learning.",
+        ],
+      },
+      {
+        id: "campus-tech-volunteer",
+        title: "Campus & Community Tech Volunteer",
+        type: "Volunteer · Local",
+        location: "Sompeta and Srikakulam district, Andhra Pradesh",
+        summary:
+          "Helping schools, clubs and small businesses around Sompeta get online — simple websites, basic digital setup and coding workshops for students.",
+        responsibilities: [
+          "Build simple, low-maintenance websites for local organisations.",
+          "Run introductory coding sessions for school and college students in Srikakulam district.",
+          "Help set up email, hosting and basic online presence.",
+        ],
+        requirements: [
+          "Local to Sompeta, Srikakulam or nearby Andhra Pradesh towns.",
+          "Patience — most of this work is teaching, not just coding.",
+        ],
+      },
+    ] as CareerRole[],
+  },
+
 
   milestones: [
     {
@@ -287,6 +391,18 @@ export const portfolio = {
       tags: ["Python", "CLI", "Error handling"],
       year: "2025",
       repoUrl: "https://github.com/hariadityareddy666-afk",
+      role: "Solo build",
+      overview: [
+        "This was the first program I wrote that other people could actually use without me sitting next to them. It runs in the terminal, asks for two numbers and an operation, and returns a result — but almost all of the work went into everything that happens when the input is wrong.",
+        "Early versions crashed the moment someone typed a letter instead of a number, or divided by zero. Rewriting it around validation taught me to treat user input as untrusted by default, which is the same instinct I now apply to web forms.",
+        "It stays on my portfolio because it marks the point where I stopped writing code that works only on the happy path.",
+      ],
+      highlights: [
+        "Handles addition, subtraction, multiplication and division with float precision.",
+        "Rejects non-numeric input with a clear message instead of a traceback.",
+        "Guards against division by zero rather than crashing.",
+        "Loops until the user chooses to exit, keeping session state clean.",
+      ],
     },
     {
       id: "portfolio-website",
@@ -297,6 +413,18 @@ export const portfolio = {
       tags: ["HTML", "CSS", "Responsive"],
       year: "2025",
       repoUrl: "https://github.com/hariadityareddy666-afk",
+      role: "Design and build",
+      overview: [
+        "My first website was a single HTML file with one stylesheet beside it. No framework, no build step — just markup, CSS and a lot of reloading the browser to see what changed.",
+        "It forced me to learn the parts that frameworks usually hide: the box model, flexbox, media queries, and why type scale and spacing matter more than colour choices.",
+        "Everything I know about layout came out of this project, and the site you are reading now is its direct descendant.",
+      ],
+      highlights: [
+        "Hand-written semantic HTML with no page builder.",
+        "Responsive layout using flexbox and media queries down to small phones.",
+        "A consistent type scale and spacing system defined once in CSS.",
+        "Loads fast because there is almost nothing to load.",
+      ],
     },
     {
       id: "base44-hackathon",
@@ -307,8 +435,21 @@ export const portfolio = {
       tags: ["Hackathon", "Teamwork", "Rapid prototyping"],
       year: "2025",
       repoUrl: "https://github.com/hariadityareddy666-afk",
+      role: "Team member — build and demo",
+      overview: [
+        "Base44 was a university-wide hackathon at Takshashila University, and our team took first place. The winning move was not a clever idea — it was cutting the idea down until we could finish it.",
+        "We spent the first hour listing features and the second hour deleting most of them. What survived was small enough to build end to end, test properly, and rehearse twice before the demo.",
+        "The result worked on stage, first try, which turned out to be rarer than we expected.",
+      ],
+      highlights: [
+        "First place out of the full university-wide field.",
+        "Working end-to-end build completed inside the time limit.",
+        "Scope cut deliberately in the first two hours to protect the demo.",
+        "Final hour spent on polish and rehearsal instead of new features.",
+      ],
     },
   ] as Project[],
+
 
   experience: [
     {
