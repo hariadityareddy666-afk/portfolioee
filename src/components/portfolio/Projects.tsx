@@ -63,15 +63,22 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </ul>
 
-        <div className="mt-6 flex items-center gap-4 border-t border-glass-border pt-5 text-sm">
+        <div className="mt-6 flex flex-wrap items-center gap-4 border-t border-glass-border pt-5 text-sm">
+          <Link
+            to="/projects/$id"
+            params={{ id: project.id }}
+            className="inline-flex items-center gap-1.5 rounded-md text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            View project <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
           {project.liveUrl && (
             <a
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-md text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="inline-flex items-center gap-1.5 rounded-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              Live site <ArrowUpRight className="h-4 w-4" />
+              Live site <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </a>
           )}
           {project.repoUrl && (
@@ -85,6 +92,7 @@ function ProjectCard({ project }: { project: Project }) {
             </a>
           )}
         </div>
+
       </motion.div>
     </motion.article>
   );
