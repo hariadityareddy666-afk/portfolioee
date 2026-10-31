@@ -248,3 +248,187 @@ function CareersPage() {
     </ThemeProvider>
   );
 }
+
+const inputClass =
+  "w-full rounded-xl border border-glass-border bg-secondary/40 px-4 py-3 text-sm placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+
+function ApplicationForm() {
+  const submitFn = useServerFn(submitApplication);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [error, setError] = useState("");
+
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const text = (key: string) => String(fd.get(key) ?? "").trim();
+    setStatus("submitting");
+    setError("");
+    try {
+      await submitFn({
+        data: {
+          name: text("name"),
+          email: text("email"),
+          phone: text("phone") || undefined,
+          roleId: text("role"),
+          message: text("message"),
+          links: text("links") || undefined,
+          website: text("website"),
+        },
+      });
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+      setError(
+        "Something went wrong sending your application — please email me at " +
+          portfolio.person.email +
+          " instead.",
+      );
+    }
+  }
+
+  if (status === "success") {
+    return (
+      <div className="glass mt-6 rounded-3xl p-8 text-center" role="status">
+        <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-primary/15 text-accent ring-1 ring-primary/30">
+          <Send className="h-5 w-5" aria-hidden="true" />
+        </span>
+        <p className="mt-4 text-base font-medium">Application received</p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Your details are saved and a copy is in my inbox. I usually reply within a day.
+        </p>
+        <button
+          type="button"
+          onClick={() => setStatus("idle")}
+          className="mt-5 inline-flex items-center gap-2 rounded-full border border-glass-border px-5 py-2.5 text-sm transition-colors hover:border-accent/50 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          Send another application
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form
+      onSubmit={onSubmit}
+      noValidate
+      className="glass mt-6 grid gap-5 rounded-3xl p-6 sm:grid-cols-2 sm:p-8"
+    >
+      <div>
+        <label htmlFor="apply-name" className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+          Full name *
+        </label>
+        <input
+          id="apply-name"
+          name="name"
+          type="text"
+          required
+          minLength={2}
+          maxLength={100}
+          autoComplete="name"
+          placeholder="Your name"
+          className={inputClass}
+        />
+      </div>
+      <div>
+        <label htmlFor="apply-email" className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+          Email *
+        </label>
+        <input
+          id="apply-email"
+          name="email"
+          type="email"
+          required
+          maxLength={255}
+          autoComplete="email"
+          placeholder="you@example.com"
+          className={inputClass}
+        />
+      </div>
+      <div>
+        <label htmlFor="apply-phone" className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+          Phone / WhatsApp
+        </label>
+        <input
+          id="apply-phone"
+          name="phone"
+          type="tel"
+          maxLength={20}
+          autoComplete="tel"
+          placeholder="+91 ..."
+          className={inputClass}
+        />
+      </div>
+      <div>
+        <label htmlFor="apply-role" className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+          Role *
+        </label>
+        <select id="apply-role" name="role" required defaultValue={portfolio.careers.roles[0]?.id} className={inputClass}>
+          {portfolio.careers.roles.map((role) => (
+            <option key={role.id} value={role.id}>
+              {role.title}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="sm:col-span-2">
+        <label htmlFor="apply-links" className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+          Link to your work (optional)
+        </label>
+        <input
+          id="apply-links"
+          name="links"
+          type="url"
+          maxLength={500}
+          placeholder="https://github.com/..."
+          className={inputClass}
+        />
+      </div>
+      <div className="sm:col-span-2">
+        <label htmlFor="apply-message" className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+          About the work *
+        </label>
+        <textarea
+          id="apply-message"
+          name="message"
+          required
+          minLength={20}
+          maxLength={2000}
+          rows={5}
+          placeholder="What's the role, the timeline, and anything else I should know?"
+          className={inputClass}
+        />
+      </div>
+      {/* Honeypot — hidden from humans, filled in by bots. */}
+      <div aria-hidden="true" className="hidden">
+        <label htmlFor="apply-website">Website</label>
+        <input id="apply-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
+      {status === "error" && (
+        <p role="alert" className="sm:col-span-2 rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          {error}
+        </p>
+      )}
+
+      <div className="sm:col-span-2">
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          {status === "submitting" ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Sending…
+            </>
+          ) : (
+            <>
+              <Send className="h-4 w-4" aria-hidden="true" /> Send application
+            </>
+          )}
+        </button>
+      </div>
+    </form>
+  );
+}
