@@ -169,6 +169,22 @@ function PortfolioPage() {
             Nothing in this category yet — more {filter.toLowerCase()} work is on the way.
           </p>
         )}
+
+        <div className="mt-12 flex flex-wrap gap-3">
+          <Link
+            to="/gallery"
+            className="inline-flex items-center gap-2 rounded-full border border-glass-border px-5 py-2.5 text-sm transition-colors hover:border-accent/50 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            Browse the work gallery <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+          <Link
+            to="/"
+            hash="contact"
+            className="inline-flex items-center gap-2 rounded-full border border-glass-border px-5 py-2.5 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            Ask about a project
+          </Link>
+        </div>
       </main>
       <Footer />
       <BackToTop />

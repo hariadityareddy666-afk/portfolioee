@@ -1,7 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useServerFn } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Loader2, Mail, MapPin, Phone, Send } from "lucide-react";
+import { useState, type FormEvent } from "react";
 import { portfolio } from "@/config";
+import { submitApplication } from "@/lib/careers.functions";
 import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { AnimatedBackground } from "@/components/portfolio/AnimatedBackground";
@@ -211,6 +213,17 @@ function CareersPage() {
               <Phone className="h-4 w-4" aria-hidden="true" /> {person.phone} ({person.phoneNote})
             </a>
           </div>
+        </section>
+
+        <section className="mt-16" aria-labelledby="apply-form">
+          <h2 id="apply-form" className="text-2xl font-semibold">
+            Apply for a role
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            Skip the email — send your details here. Every application is stored and
+            lands in my inbox with the role attached.
+          </p>
+          <ApplicationForm />
         </section>
 
         <section className="glass mt-16 rounded-3xl p-6 sm:p-8" aria-labelledby="where">

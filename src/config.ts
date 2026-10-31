@@ -9,6 +9,8 @@ import resumeAsset from "./assets/resume.pdf.asset.json";
 import blogHackathonImg from "./assets/blog-hackathon.jpg";
 import blogDsaImg from "./assets/blog-dsa.jpg";
 import blogWebdevImg from "./assets/blog-webdev.jpg";
+import heroMeshImg from "./assets/hero-mesh.jpg";
+import galleryResumeImg from "./assets/gallery-resume.jpg";
 
 export type ProjectCategory = "Frontend" | "Backend" | "Fullstack";
 
@@ -90,6 +92,19 @@ export interface SocialLink {
   href: string;
   /** Must match an icon name exported by lucide-react */
   icon: "Github" | "Linkedin" | "Instagram" | "Mail" | "Globe";
+}
+
+export interface GalleryItem {
+  id: string;
+  title: string;
+  description: string;
+  /** Absolute https URL for external samples, or a path within this site. */
+  url: string;
+  /** External links open in a new tab. */
+  external: boolean;
+  tag: string;
+  image?: string;
+  imageAlt?: string;
 }
 
 export const portfolio = {
@@ -449,6 +464,65 @@ export const portfolio = {
       ],
     },
   ] as Project[],
+
+  /** Work samples shown on /gallery — every entry links to the real thing. */
+  gallery: [
+    {
+      id: "this-website",
+      title: "This website",
+      description:
+        "A fully custom-built portfolio with a live resume generator, blog, RSS feed and filtered project pages — everything reads from one content file.",
+      url: "https://portfolioee.lovable.app",
+      external: true,
+      tag: "Live site",
+      image: heroMeshImg,
+      imageAlt: "Dark abstract gradient mesh in indigo and cyan",
+    },
+    {
+      id: "resume-pdf",
+      title: "Résumé (PDF)",
+      description:
+        "My resume as a live PDF, generated directly from this site's content — so the version you download always matches the site.",
+      url: "/resume.pdf",
+      external: false,
+      tag: "Document",
+      image: galleryResumeImg,
+      imageAlt: "Stylised glass resume document with glowing indigo and cyan lines",
+    },
+    {
+      id: "base44-hackathon",
+      title: "Base44 Hackathon Build",
+      description:
+        "The build that took first place at the university-wide Base44 hackathon — scoped small, finished inside the time limit and demoed live.",
+      url: "https://github.com/hariadityareddy666-afk",
+      external: true,
+      tag: "Code",
+      image: blogHackathonImg,
+      imageAlt: "Glowing neon trophy over a dark wireframe landscape",
+    },
+    {
+      id: "python-calculator",
+      title: "Python Calculator App",
+      description:
+        "A command-line calculator in Python with real input validation — the first program I wrote that other people could use without me next to them.",
+      url: "https://github.com/hariadityareddy666-afk",
+      external: true,
+      tag: "Code",
+      image: blogDsaImg,
+      imageAlt: "Cyan nodes and edges forming a data structure graph on a dark background",
+    },
+    {
+      id: "first-portfolio",
+      title: "Hand-coded HTML/CSS page",
+      description:
+        "My first website — semantic HTML and a single stylesheet, no frameworks. Where all of this started.",
+      url: "https://github.com/hariadityareddy666-afk",
+      external: true,
+      tag: "Code",
+      image: blogWebdevImg,
+      imageAlt: "Neon browser window wireframe surrounded by floating UI component blocks",
+    },
+  ] as GalleryItem[],
 
 
   experience: [

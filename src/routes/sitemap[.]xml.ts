@@ -13,6 +13,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { loc: "/portfolio", priority: "0.9" },
           { loc: "/repositories", priority: "0.8" },
           { loc: "/careers", priority: "0.9" },
+          { loc: "/gallery", priority: "0.7" },
           { loc: "/resume", priority: "0.8" },
           { loc: "/resume.pdf", priority: "0.5" },
           ...portfolio.projects.map((p) => ({
