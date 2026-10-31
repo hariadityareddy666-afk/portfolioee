@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as CareersRouteImport } from './routes/careers'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as RepositoriesRouteImport } from './routes/repositories'
 import { Route as ResumeRouteImport } from './routes/resume'
@@ -34,6 +35,11 @@ const AboutRoute = AboutRouteImport.update({
 const CareersRoute = CareersRouteImport.update({
   id: '/careers',
   path: '/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortfolioRoute = PortfolioRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
+  '/gallery': typeof GalleryRoute
   '/portfolio': typeof PortfolioRoute
   '/repositories': typeof RepositoriesRoute
   '/resume': typeof ResumeRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
+  '/gallery': typeof GalleryRoute
   '/portfolio': typeof PortfolioRoute
   '/repositories': typeof RepositoriesRoute
   '/resume': typeof ResumeRoute
@@ -108,6 +116,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
+  '/gallery': typeof GalleryRoute
   '/portfolio': typeof PortfolioRoute
   '/repositories': typeof RepositoriesRoute
   '/resume': typeof ResumeRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
+    | '/gallery'
     | '/portfolio'
     | '/repositories'
     | '/resume'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
+    | '/gallery'
     | '/portfolio'
     | '/repositories'
     | '/resume'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/careers'
+    | '/gallery'
     | '/portfolio'
     | '/repositories'
     | '/resume'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   CareersRoute: typeof CareersRoute
+  GalleryRoute: typeof GalleryRoute
   PortfolioRoute: typeof PortfolioRoute
   RepositoriesRoute: typeof RepositoriesRoute
   ResumeRoute: typeof ResumeRoute
@@ -194,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/careers'
       fullPath: '/careers'
       preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portfolio': {
@@ -259,6 +279,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   CareersRoute: CareersRoute,
+  GalleryRoute: GalleryRoute,
   PortfolioRoute: PortfolioRoute,
   RepositoriesRoute: RepositoriesRoute,
   ResumeRoute: ResumeRoute,
