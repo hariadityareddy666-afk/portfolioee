@@ -39,6 +39,9 @@ export const submitApplication = createServerFn({ method: "POST" })
     const role =
       portfolio.careers.roles.find((r) => r.id === data.roleId) ??
       portfolio.careers.roles[0];
+    if (!role) {
+      throw new Error("No roles are configured. Please email me instead.");
+    }
 
     // Store the application with an unauthenticated (anon) insert — RLS only
     // allows INSERT, so submitted details are never readable through the API.
